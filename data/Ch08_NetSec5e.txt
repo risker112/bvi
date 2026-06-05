@@ -1,0 +1,299 @@
+Electronic Mail Security
+Mail
+MAIL
+          E-mail Security
+
+• E-mail is one of the most widely used network services
+  o One of the old killer applications of the Internet
+
+• Normally message contents not secured
+  o Can be read/modified either in transit or at destination
+    by the attacker
+
+• E-mail service is like postcard service
+  o just pick it and read it
+         Email Security
+         Enhancements
+• confidentiality
+  o protection from disclosure
+
+• authentication
+  o of sender of message
+
+• message integrity
+  o protection from modification
+
+• non-repudiation of origin
+  o protection from denial by sender
+SMTP - Threats
+              E-mail Threats
+• Data security
+  • Network
+  • Mail server
+
+• SPAM
+  • Bandwidth
+  • System resources
+
+• Phishing
+
+• Malware
+
+• Ransomware
+                Reverse DNS
+
+• SPAM reduction
+
+• Server side
+        Sender Policy
+       Framework (SPF)
+• Current email infrastructure allows to use any domain
+  name while sending during SMTP messaging and in
+  the email header.
+         Sender Policy
+        Framework (SPF)
+• SPF is the standardized way for a sending domain to
+  identify and assert the mail senders for that domain
+
+• SPF works by checking a sender’s IP address against
+  the policy encoded in any SPF record found at the
+  sending domain DNS records
+  o This means that SPF checks can be applied before the
+    message content is received from the sender (from: field
+    in the message header is not checked)
+
+• SPF policies are stored in TXT type DNS resource
+  records (SPF TXT RR)
+           SPF
+
+• SPAM
+
+• Server
+     DomainKeys
+ Identified Mail (DKIM)
+• A specification for cryptographically signing e-mail
+  messages, permitting a signing domain to claim
+  responsibility for a message in the mail stream
+• Message recipients can verify the signature by querying
+  the signer’s domain directly to retrieve the appropriate
+  public key and can thereby confirm that the message was
+  attested to by a party in possession of the private key for
+  the signing domain
+• Proposed Internet Standard RFC 4871
+• Has been widely adopted by a range of e-mail providers
+  and Internet Service Providers (ISPs)
+Pretty Good Privacy
+        (PGP)
+• Provides a confidentiality and authentication service that
+  can be used for electronic mail and file storage applications
+
+• Developed by Phil Zimmermann
+  • Selected the best available cryptographic algorithms as building
+    blocks
+  • Integrated these algorithms into a general-purpose application
+    that is independent of operating system and processor and that
+    is based on a small set of easy-to-use commands
+  • Made the package and its documentation, including the source
+    code, freely available via the Internet, bulletin boards, and
+    commercial networks
+  • Entered into an agreement with a company to provide a fully
+    compatible, low-cost commercial version of PGP
+         PGP Mechanisms
+• Digital Signatures (and consequently message
+  authentication and integrity)
+  o RSA, DSS, and others
+
+• Message Encryption
+  o CAST, IDEA, 3DES, AES, etc. (all at least 128 bits)
+  o symmetric keys are used once and encrypted using RSA or
+    ElGamal (based on discrete logs)
+
+• Compression using ZIP
+
+• Radix-64 conversion (to ASCII)
+  o for e-mail compatibility
+ PGP Authentication
+• Combination of SHA-1 and RSA provides an effective
+  digital signature scheme
+  • Because of the strength of RSA the recipient is assured
+    that only the possessor of the matching private key can
+    generate the signature
+  • Because of the strength of SHA-1 the recipient is assured
+    that no one else could generate a new message that
+    matches the hash code
+  • As an alternative, signatures can be generated using
+    DSS/SHA-1
+  • Detached signatures are supported
+  • Each person’s signature is independent
+    and therefore applied only to the document
+     PGP Confidentiality
+• Provided by encrypting messages to be transmitted or to be stored locally as
+  files
+  • In both cases the symmetric encryption algorithm CAST-128 may be used
+  • Alternatively IDEA or 3DES may be used
+  • The 64-bit cipher feedback (CFB) mode is used
+
+
+                In PGP each symmetric key is used only once
+
+      • Although referred to as a session key, it is in reality a one-time
+        key
+      • Session key is bound to the message and transmitted with it
+      • To protect the key, it is encrypted with the receiver’s public key
+
+
+• As an alternative to the use of RSA for key encryption, PGP uses ElGamal,
+  a variant of Diffie-Hellman that provides encryption/decryption
+   PGP Confidentiality
+   and Authentication
+• Both services may be used for the same message
+  • First a signature is generated for the plaintext message and
+    prepended to the message
+  • Then the plaintext message plus signature is encrypted using
+    CAST-128 (or IDEA or 3DES) and the session key is
+    encrypted using RSA (or ElGamal)
+
+• When both services are used:
+                                                               And finally
+                    The sender first
+                                         Then encrypts the     encrypts the
+                   signs the message
+                                          message with a     session key with
+                  with its own private
+                                            session key       the recipient’s
+                           key                                  public key
+      PGP Compression
+
+• As a default, PGP compresses the message after
+  applying the signature but before encryption
+  • This has the benefit of saving space both for e-mail
+    transmission and for file storage
+  • The placement of the compression algorithm is critical
+    • Applying the hash function and signature after compression
+      would constrain all PGP implementations to the same
+      version of the compression algorithm
+    • Message encryption is applied after compression to
+      strengthen cryptographic security
+  • The compression algorithm used is ZIP
+PGP E-mail Compatibility
+
+• Many electronic mail systems only permit the use of
+  blocks consisting of ASCII text
+  • To accommodate this restriction, PGP provides the
+    service of converting the raw 8-bit binary stream to a
+    stream of printable ASCII characters
+  • The scheme used for this purpose is radix-64 conversion
+    • Each group of three octets of binary data is mapped into
+      four ASCII characters
+    • This format also appends a CRC to detect
+      transmission errors
+                      Radix-64
+• The binary input is split into blocks of 24 bits (3 bytes).
+
+• Each 24 block is then split into four sets each of 6-bits.
+
+• Each 6-bit set will then have a value between 0 and 26-1 (=63).
+
+• This value is encoded into a printable character.
+Radix-64
+   PGP Key ID concept
+
+• since a user may have many public/private keys in
+  use, there is a need to identify which is actually used to
+  encrypt the session key in a message
+  o PGP uses a key identifier which is least significant 64-bits
+    of the public key
+
+• Key IDs are used in signatures too
+  o key ID for the public key corresponding to the private key
+    used for signature
+
+• Key IDs are sent together with messages
+           PGP Key Rings
+
+• each PGP user has a pair of keyrings to store public
+  and private keys
+  o public-key ring contains all the public-keys of other PGP
+    users known to this user
+
+• private-key ring contains the public/private key pair(s)
+  for this user,
+
+• private keys are encrypted using a key derived from a
+  hashed passphrase
+ PGP Key Management
+• You have to make sure about the legitimacy of the
+  public key of your party
+  o exchange public-keys manually (using CDs, USB sticks,
+    etc.)
+  o verify fingerprint of a public key over the phone
+  o trust another individual who signs public keys
+    ▪ public key signatures
+
+• in PGP each user is a CA
+  o everybody can sign keys of users they know directly
+  o other users’ key signatures can also be used, if those users
+    are trusted
+                         MIME
+
+• MIME (Multipurpose Internet Mail Extensions) is an
+  extension of the original Simple Mail Transport
+  Protocol (SMTP) email protocol. It lets users exchange
+  different kinds of data files, including audio, video,
+  images and application programs, over email.
+  o content type
+    ▪ Almost any type of information can appear in an email
+      message
+  o transfer encoding
+    ▪ specifies how the message body is encoded into textual form
+      (radix64 is common)
+                     S/MIME
+
+• Secure/Multipurpose Internet Mail Extensions
+
+• A standard way for email encryption and signing
+
+• Industry support
+
+• Not a standalone software, a system that is to be
+  supported by email clients
+  o such as MS Outlook and Thunderbird
+
+• S/MIME handles digital signatures
+  o Also provides encryption
+  S/MIME Cryptographic
+       Algorithms
+• hash functions: switched to SHA256
+• digital signatures: Mostly RSA is used
+• session key encryption: Mostly RSA is used
+• message encryption: Triple-DES, AES and others, but AES-
+  128 is preferred
+• Base64 (radix64) encoding is used for email compatibility
+  (ASCII conversion)
+• sender should know the capabilities of the receiving entity
+  (public announcement or previously received messages from
+  receiver)
+S/MIME Security
+Functionality:
+      S/MIME Certificate
+          Processing
+• S/MIME uses X.509 v3 certificates
+  o Certification Authorities (CAs) issue certificates
+  o unlike PGP, a user cannot be a CA
+
+• each client has a list of trusted CA certificates
+  o actually that list comes with e-mail client software or OS
+
+• and own public/private key pairs and certs
+                     Summary
+• Pretty good privacy
+  • Notation
+  • Operational description
+
+• DomainKeys Identified
+  Mail
+  •   Internet mail architecture
+  •   E-mail threats
+  •   DKIM strategy
+  •   DKIM functional flow
+

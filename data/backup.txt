@@ -1,0 +1,88 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Data Backups and Archives
+
+Backups
+? Backups are copies of data files or records, made at a moment in time, and primarily used in the event of failure of the active files.
+? Deletion or corruption of an original working file converts the most recent backup into the de facto original.
+? Archives-Although backups are used to store and retrieve operational data chronologically, data archives are used to store data that is seldom or no longer used but, when needed for reference
+
+Need
+? To replace lost or corrupted data with valid versions
+? To satisfy audit and legal requirements for access to retained data
+? In forensic examination of data to recognize and characterize a crime and to identify suspects
+? To satisfy requirements of due care and diligence in safeguarding corporate assets
+? To demonstrate the authorship of documents or works of art through a chain of documented, dated copies
+
+Making Backups
+? Fault-Tolerant Systems
+? Hierarchical Storage Systems
+? Disk Mirroring
+? RAID
+? SAN
+? NAS
+? Workstation and Personal Computer Mirroring
+? Logging and Recovery
+
+Making Backups
+? Backup Software
+? Removable Media
+* External Hard Disk Drives
+* Removable Hard Disk Drives
+* Optical Storage
+* Tape Cartridge Systems
+* Personal Storage Devices: Flash Memory
+? Labeling
+? Indexing and Archives
+? Registry Backups
+? Bootable Versions
+? Cloud Backup
+
+Backup Strategies
+? Exclusive Access
+? Types of Backups
+* Full
+* Differential
+* Incremental
+* Delta
+* Versions
+? Computer Systems
+* Mainframes
+* Servers
+* Workstations, Laptop Computers
+* Mobile Computing Devices
+
+Safeguarding Backups
+? Environmental Protection
+? Onsite Protection
+? Offsite Protection
+* Care during Transport
+* Homes
+* Safes
+* Banks
+
+Disposal
+? Scavenging
+? Data and Media Destruction
+* Operating System Formatting
+* Clearing Data
+* Shredding
